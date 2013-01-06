@@ -76,7 +76,7 @@
 \RenewDocumentCommand\labelitemii{}{~} 
 
 \DeclareDocumentCommand\ind{}{
-  \hangindent=1 true cm\hangafter=1 \noindent
+  \par\hangindent=1 true cm\hangafter=1 \noindent
 }
 
 \pagestyle{fancy}
