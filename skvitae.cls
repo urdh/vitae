@@ -35,7 +35,7 @@
   \def\VCDateISO{}
 }
 
-\RequirePackage{url,fancyhdr}
+\RequirePackage{url,fancyhdr,marginnote}
 \RequirePackage{fontspec,xunicode}
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
@@ -57,17 +57,19 @@
 
 \DeclareDocumentCommand\section{som}{
   \bigskip\par
-  \marginpar{
-    \textbf{
-      \textsf{
-        \footnotesize\vspace{-1em}
-        \flushright\MakeLowercase{#3}
+  \marginnote{
+    \footnotesize
+    \llap{
+      \textbf{
+        \textsf{
+          \MakeLowercase{#3}
+        }
       }
-    }
+    }\mbox{}
   }
 }
 \DeclareDocumentCommand\subsection{som}{
-  \noindent\emph{#3}\smallskip
+  \par\noindent\emph{#3}\smallskip
 }
 \DeclareDocumentCommand\amper{}{
   {\fontspec[Scale=.95,Colour=AA0000]{Minion Pro Medium}\selectfont\&\,}
