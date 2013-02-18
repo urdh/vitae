@@ -3,8 +3,10 @@ cv: svenska.pdf english.pdf
 all: cv letters
 clean:
 	rm -f *.aux *.log *.out
+	$(MAKE) -C letters clean
 distclean: clean
 	rm -f *.pdf
+	$(MAKE) -C letters distclean
 
 %.pdf:
 	sh ./vc
@@ -12,4 +14,4 @@ distclean: clean
 	xelatex $*.tex
 
 letters:
-	$(MAKE) -C letters;
+	$(MAKE) -C letters
