@@ -101,7 +101,7 @@
   \end{minipage}
   \begin{minipage}[t]{1.7in}
     \begingroup\flushright\footnotesize
-    \marvosymbol{84}\ \@phone \\
+    \@ifundefined{\@phone}{\mbox{}}{\marvosymbol{84}\ \@phone} \\
     \marvosymbol{72}\ \@mobile \\
     \hfill\hbox{\scriptsize\texttt{\href{mailto:\@email}{\@email}}}
     \mbox{}\\
