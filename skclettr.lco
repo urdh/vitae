@@ -1,0 +1,29 @@
+%%% A template to produce a nice-looking cover letter.
+%%% Simon Sigurdhsson <sigurdhsson@gmail.com>
+%%% Load using \documentclass[skclettr,...]{scrlttr2}
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesFile{skclettr.lco}[2013/02/18 v1.0 skclettr cover letter template for scrlttr2]
+
+\RequirePackage{ifxetex,ifluatex}
+\ifxetex\else\ifluatex\else
+\ClassError{skvitae}{Requires XeTeX or luaTeX!}
+{Please run using the `xelatex' or `lualatex' commands.}
+\fi\fi
+
+\IfFileExists{vc.tex}{
+  \input{vc}
+}{
+  \def\VCRevision{}
+  \def\VCModifiedText{}
+  \def\VCDateISO{}
+}
+
+\RequirePackage{url,fancyhdr,marginnote}
+\RequirePackage{fontspec,xunicode}
+\RequirePackage[usenames,dvipsnames]{xcolor}
+
+\setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro} 
+\setsansfont[Mapping=tex-text,Colour=AA0000]{Myriad Pro}
+\setmonofont[Mapping=tex-text,Scale=0.9]{Monaco} 
+
+\KOMAoptions{foldmarks=false,fromfax=false,fromurl=false,backaddress=false,fromalign=right,subject=afteropening,subject=left}
