@@ -1,0 +1,7 @@
+\ProvidesFile{urdh.lco}[2013/02/18]
+\setkomavar{fromname}{Simon Sigurdhsson}
+\setkomavar{signature}{Simon Sigurdhsson}
+\setkomavar{fromaddress}{Engdahlsgatan 6C\\ 412\,59 Göteborg}
+\setkomavar{fromemail}{sigurdhsson@gmail.com}
+\setkomavar{fromphone}{0703–29\,30\,54}
+\setkomavar{fromurl}{http://sigurdhsson.org/}
