@@ -15,7 +15,7 @@
 {Please run using the `xelatex' or `lualatex' commands.}
 \fi\fi
 
-\LoadClass[11pt]{article}
+\LoadClass[12pt]{article}
 
 \DeclareDocumentCommand\author{m}{\gdef\@author{#1}}
 \DeclareDocumentCommand\affiliation{m}{\gdef\@affiliation{#1}}
