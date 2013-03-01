@@ -86,7 +86,7 @@
 \fancyhead{}
 \fancyfoot{}
 \rhead{{\scriptsize\thepage}}
-\rfoot{\textcolor{Gray}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO\\\VCModifiedText}} 
+\rfoot{\textcolor{Gray}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO}}%\\\VCModifiedText}} 
 
 \DeclareDocumentCommand\marvosymbol{m}{{\fontfamily{mvs}\fontencoding{U}\fontseries{m}\fontshape{n}\selectfont\char#1}}
 
