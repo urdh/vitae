@@ -1,4 +1,4 @@
-.PHONY: cv all clean distclean
+.PHONY: cv all clean distclean letters
 cv: svenska.pdf english.pdf
 all: cv letters
 clean:
