@@ -7,6 +7,6 @@ clean:
 distclean: clean
 	rm -f *.pdf
 
-%.pdf:
-	xelatex $*.tex
-	xelatex $*.tex
+%.pdf: %.tex
+	xelatex $<
+	xelatex $<

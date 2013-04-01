@@ -8,10 +8,10 @@ distclean: clean
 	rm -f *.pdf
 	$(MAKE) -C letters distclean
 
-%.pdf:
+%.pdf: %.tex
 	sh ./vc
-	xelatex $*.tex
-	xelatex $*.tex
+	xelatex $<
+	xelatex $<
 
 letters:
 	$(MAKE) -C letters
