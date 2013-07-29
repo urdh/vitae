@@ -26,6 +26,7 @@
 \DeclareDocumentCommand\phone{m}{\gdef\@phone{#1}}
 \DeclareDocumentCommand\mobile{m}{\gdef\@mobile{#1}}
 \DeclareDocumentCommand\keywords{m}{\gdef\@keywords{#1}}
+\DeclareDocumentCommand\github{m}{\gdef\@github{#1}}
 
 \IfFileExists{vc.tex}{
   \input{vc}
@@ -54,6 +55,7 @@
 \setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro} 
 \setsansfont[Mapping=tex-text,Colour=AA0000]{Myriad Pro}
 \setmonofont[Mapping=tex-text,Scale=0.9]{Monaco} 
+\usepackage{fontawesome}
 
 \DeclareDocumentCommand\section{som}{
   \bigskip\par
@@ -88,8 +90,6 @@
 \rhead{{\scriptsize\thepage}}
 \rfoot{\textcolor{Gray}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO}}%\\\VCModifiedText}} 
 
-\DeclareDocumentCommand\marvosymbol{m}{{\fontfamily{mvs}\fontencoding{U}\fontseries{m}\fontshape{n}\selectfont\char#1}}
-
 \DeclareDocumentCommand\maketitle{}{
   \hfill
   \begin{minipage}[t]{2.95in}
@@ -101,8 +101,11 @@
   \end{minipage}
   \begin{minipage}[t]{1.7in}
     \begingroup\flushright\footnotesize
-    \@ifundefined{\@phone}{\mbox{}}{\marvosymbol{84}\ \@phone} \\
-    \marvosymbol{72}\ \@mobile \\
+    %\@ifundefined{\@phone}{\mbox{}}{\faicon{phone}\ \@phone} \\
+    \scalebox{0.5}{\raisebox{-.25ex}{\faicon{github}}}%
+      \hspace{.75em}\@github \\
+    \scalebox{0.5}{\raisebox{-.5ex}{\faicon{phone}}}%
+      \hspace{.75em}\@mobile \\
     \hfill\hbox{\scriptsize\texttt{\href{mailto:\@email}{\@email}}}
     \mbox{}\\
     \endgroup
