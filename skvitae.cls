@@ -102,10 +102,10 @@
   \begin{minipage}[t]{1.7in}
     \begingroup\flushright\footnotesize
     %\@ifundefined{\@phone}{\mbox{}}{\faicon{phone}\ \@phone} \\
-    \scalebox{0.5}{\raisebox{-.25ex}{\faicon{github}}}%
-      \hspace{.75em}\@github \\
-    \scalebox{0.5}{\raisebox{-.5ex}{\faicon{phone}}}%
-      \hspace{.75em}\@mobile \\
+    \scalebox{0.9}{\raisebox{-.125ex}{\faicon{github}}}%
+      \hspace{.5em}\@github \\
+    \scalebox{0.9}{\raisebox{-.25ex}{\faicon{phone}}}%
+      \hspace{.5em}\@mobile \\
     \hfill\hbox{\scriptsize\texttt{\href{mailto:\@email}{\@email}}}
     \mbox{}\\
     \endgroup
