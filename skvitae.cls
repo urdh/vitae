@@ -88,7 +88,7 @@
 \fancyhead{}
 \fancyfoot{}
 \rhead{{\scriptsize\thepage}}
-\rfoot{\textcolor{Gray}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO}}%\\\VCModifiedText}} 
+\rfoot{\textcolor[gray]{0.85}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO}}%\\\VCModifiedText}} 
 
 \DeclareDocumentCommand\maketitle{}{
   \hfill
