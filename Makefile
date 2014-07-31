@@ -1,4 +1,4 @@
-.PHONY: cv all clean distclean letters
+.PHONY: cv all clean distclean letters deploy
 cv: svenska.pdf english.pdf
 all: cv letters
 clean:
@@ -15,3 +15,6 @@ distclean: clean
 
 letters:
 	$(MAKE) -C letters
+
+deploy: cv
+	scp svenska.pdf english.pdf remote:~/www/cv
