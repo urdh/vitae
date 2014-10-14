@@ -36,11 +36,12 @@
   \def\VCDateISO{}
 }
 
+\RequirePackage[final]{microtype}
 \RequirePackage{url,fancyhdr,marginnote}
 \RequirePackage{fontspec,xunicode}
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
-\AtBeginDocument{\RequirePackage[xetex, 
+\AtBeginDocument{\RequirePackage[xetex,
     colorlinks=true,
     urlcolor=BlueViolet,
     plainpages=false,
@@ -52,9 +53,9 @@
     pdfkeywords={\@keywords}
 ]{hyperref}}
 
-\setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro} 
+\setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro}
 \setsansfont[Mapping=tex-text,Colour=AA0000]{Myriad Pro}
-\setmonofont[Mapping=tex-text,Scale=0.9]{Monaco} 
+\setmonofont[Mapping=tex-text,Scale=0.9]{Monaco}
 \usepackage{fontawesome}
 
 \DeclareDocumentCommand\section{som}{
@@ -76,8 +77,8 @@
 \DeclareDocumentCommand\amper{}{
   {\fontspec[Scale=.95,Colour=AA0000]{Minion Pro Medium}\selectfont\&\,}
 }
-\RenewDocumentCommand\labelitemi{}{~} 
-\RenewDocumentCommand\labelitemii{}{~} 
+\RenewDocumentCommand\labelitemi{}{~}
+\RenewDocumentCommand\labelitemii{}{~}
 
 \DeclareDocumentCommand\ind{}{
   \par\hangindent=1 true cm\hangafter=1 \noindent
@@ -88,7 +89,7 @@
 \fancyhead{}
 \fancyfoot{}
 \rhead{{\scriptsize\thepage}}
-\rfoot{\textcolor[gray]{0.85}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO}}%\\\VCModifiedText}} 
+\rfoot{\textcolor[gray]{0.85}{\scriptsize\texttt{\VCRevision}\ on \VCDateISO}}%\\\VCModifiedText}}
 
 \DeclareDocumentCommand\maketitle{}{
   \hfill

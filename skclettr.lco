@@ -18,12 +18,13 @@
   \def\VCDateISO{}
 }
 
+\RequirePackage[final]{microtype}
 \RequirePackage{url,fancyhdr,marginnote}
 \RequirePackage{fontspec,xunicode}
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
-\setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro} 
+\setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro}
 \setsansfont[Mapping=tex-text,Colour=AA0000]{Myriad Pro}
-\setmonofont[Mapping=tex-text,Scale=0.9]{Monaco} 
+\setmonofont[Mapping=tex-text,Scale=0.9]{Monaco}
 
 \KOMAoptions{foldmarks=false,fromfax=false,fromurl=false,backaddress=false,fromalign=right,subject=afteropening,subject=left}
