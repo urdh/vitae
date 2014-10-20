@@ -27,31 +27,41 @@
 	%\item 50-60 ord
 
 	\section{Utbildning}
-	\begin{itemize}
-		\item Civilingenjör, Teknisk Matematik, Chalmers Tekniska Högskola, 2008--nuvarande.%
-		\item Masterprogram: \emph{Engineering Mathematics and Computational Science}.%
-		\item Examensarbete: \foreignquote{english}{Solving max-sum problems with the in-the-middle heuristic}.%
-		\item Kandidatarbete: \enquote{Statistisk bildanalys av handgester för människa-dator-interaktion}.
-	\end{itemize}
+	\EduItem{
+		from = 2008, to = \Current,
+		school = {Chalmers Tekniska Högskola},
+		level = {Civilingenjör},
+		field = {Teknisk Matematik},
+		extra = {
+			{Masterprogram: \emph{Engineering Mathematics and Computational Science}},
+			\Thesis{type = msc, language = english,
+							title = {Solving max-sum problems with the in-the-middle heuristic}},
+			\Thesis{type = bsc, language = swedish,
+							title = {Statistisk bildanalys av handgester för människa-dator-interaktion}}
+		}
+	}
 
 	\section{Uppdrag}
-	\begin{itemize}
-		\item[2013] Sommarjobb (utveckare inom \emph{Verification efficiency}) hos Volvo Person\-vagnar~AB, Göteborg. %
-		    \textit{Utvecklade ett C\#.NET-program som med kommunikation över CAN och GPIB automatiserade testning av radiomottagare.}
-		\item[2006--2008] Reklamutdelare hos SDR Svensk Direktreklam, Trelleborg.
-	\end{itemize}
+	\WorkItem{from = 2013, to = 2013, city = {Göteborg},
+						title = {Sommarjobb (utveckare inom \emph{Verification efficiency})}, org = {Volvo Personvagnar~AB}}
+	\WorkItem{from = 2006, to = 2008, city = {Trelleborg},
+						title = {Reklamutdelare}, org = {SDR Svensk Direktreklam}}
 
 	\medskip
 	\subsection{Ideella uppdrag}
-	\begin{itemize}
-		%\item[2012--2013] Redaktör hos Fysikteknologsektionens informationsblad, Göteborg.
-		\item[2012--2013] Ekonomiskt ansvarig i Chalmers Studentkårs Film- och Fotocommitté, Göteborg.
-		\item[2011--2014] Fotograf i Chalmers Studentkårs Film- och Fotocommitté, Göteborg.
-		\item[2010--2011] Sekreterare i Fysikteknologsektionens styrelse, Göteborg.
-		\item[2009--2010] Ledamot i Fysikteknologsektionens sexmästeri, Göteborg.
-		\item[2009--2011] Redaktör hos Fysikteknologsektionens informationsblad, Göteborg.
-	\end{itemize}
-
+	%\WorkItem{from = 2012, to = 2013, city = {Göteborg},
+	%            title = {Redaktör}, org = {Fysikteknologsektionens informationsblad}}
+	\WorkItem{from = 2012, to = 2013, city = {Göteborg}, glue-word = {i},
+						title = {Ekonomiskt ansvarig}, org = {Chalmers Studentkårs Film- och Fotocommitté}}
+	\WorkItem{from = 2011, to = 2014, city = {Göteborg}, glue-word = {i},
+						title = {Fotograf}, org = {Chalmers Studentkårs Film- och Fotocommitté}}
+	\WorkItem{from = 2010, to = 2011, city = {Göteborg}, glue-word = {i},
+						title = {Sekreterare}, org = {Fysikteknologsektionens styrelse}}
+	\WorkItem{from = 2009, to = 2010, city = {Göteborg}, glue-word = {i},
+						title = {Ledamot}, org = {Fysikteknologsektionens sexmästeri}}
+	\WorkItem{from = 2009, to = 2011, city = {Göteborg},
+						title = {Redaktör}, org = {Fysikteknologsektionens informationsblad}}
+	
 	\section{Kompetenser}
 	\subsection{Språk}
 	\begin{itemize}

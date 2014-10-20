@@ -27,29 +27,39 @@
 	%\ind 50-60 words
 
 	\section{Education}
-	\begin{itemize}
-		\item Master of Science in Engineering Mathematics and Computational Science, Chalmers University of Technology, 2008--current.%
-		\item {Master's thesis: \enquote{Solving max-sum problems with the in-the-middle heuristic}}.%
-		\item {Bachelor thesis: \foreignquote{swedish}{Statistisk bildanalys av handgester för människa-dator-interaktion}}.
-	\end{itemize}
+	\EduItem{
+		from = 2008, to = \Current,
+		school = {Chalmers University of Technology},
+		level = {Master of Science},
+		field = {Engineering Mathematics and Computational Science},
+		extra = {
+			\Thesis{type = msc, language = english,
+							title = {Solving max-sum problems with the in-the-middle heuristic}},
+			\Thesis{type = bsc, language = swedish,
+							title = {Statistisk bildanalys av handgester för människa-dator-interaktion}}
+		}
+	}
 
 	\section{Work experience}
-	\begin{itemize}
-		\item[2013] Summer job (developer in Verification efficiency) at Volvo Car Corporation, Göteborg. %
-		    \textit{Developed C\#.NET software using CAN and GPIB to automate testing of FM receivers in infotainment systems.}
-		\item[2006--2008] Distributor at \emph{SDR Svensk Direktreklam}, Trelleborg.
-	\end{itemize}
+	\WorkItem{from = 2013, to = 2013, city = {Göteborg},
+						title = {Summer job (developer in Verification efficiency)}, org = {Volvo Car Corporation}}
+	\WorkItem{from = 2006, to = 2008, city = {Trelleborg},
+						title = {Distributor}, org = {SDR Svensk Direktreklam}}
 
 	\medskip
 	\subsection{Extracurricular activities}
-	\begin{itemize}
-		%\item[2012--2013] Editor for \emph{Fysikteknologsektionens informationsblad}, Göteborg.
-		\item[2012--2013] Treasurer for \emph{Chalmers Studentkårs Film- och Fotocommitté}, Göteborg.
-		\item[2011--2014] Photographer for \emph{Chalmers Studentkårs Film- och Fotocommitté}, Göteborg.
-		\item[2010--2011] Secretary of the board of \emph{Fysikteknologsektionen}, Göteborg.
-		\item[2009--2010] Member of \emph{Fysikteknologsektionens sexmästeri}, Göteborg.
-		\item[2009--2011] Editor for \emph{Fysikteknologsektionens informationsblad}, Göteborg.
-	\end{itemize}
+	%\WorkItem{from = 2012, to = 2013, city = {Göteborg}, glue-word = {for},
+	%            title = {Editor}, org = {Fysikteknologsektionens informationsblad}}
+	\WorkItem{from = 2012, to = 2013, city = {Göteborg}, glue-word = {for},
+						title = {Treasurer}, org = {Chalmers Studentkårs Film- och Fotocommitté}}
+	\WorkItem{from = 2011, to = 2014, city = {Göteborg}, glue-word = {for},
+						title = {Photographer}, org = {Chalmers Studentkårs Film- och Fotocommitté}}
+	\WorkItem{from = 2010, to = 2011, city = {Göteborg}, glue-word = {of},
+						title = {Secretary of the board}, org = {Fysikteknologsektionen}}
+	\WorkItem{from = 2009, to = 2010, city = {Göteborg}, glue-word = {of},
+						title = {Member}, org = {Fysikteknologsektionens sexmästeri}}
+	\WorkItem{from = 2009, to = 2011, city = {Göteborg}, glue-word = {for},
+						title = {Editor}, org = {Fysikteknologsektionens informationsblad}}
 
 	\section{Skills}
 	\subsection{Language}

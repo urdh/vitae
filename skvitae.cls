@@ -6,7 +6,7 @@
 \ProvidesExplClass{skvitae}{2014/10/20}{2.0}
   {skvitae curriculum vitae class}
 \LoadClass[12pt]{article}
-\RequirePackage{l3regex}
+\RequirePackage{l3regex,etoolbox}
 
 % Error messages
 \msg_new:nnnn{skvitae}{missing-contact-info}{Contact~info~field~`#1'~is~missing!}
@@ -22,7 +22,7 @@
 }
 
 % Contact info setup macro
-\keys_define:nn{skvitae / local}{
+\keys_define:nn{skvitae / contact-info}{
   name    .tl_gset:N = \g__skvitae_name_tl,
   title   .tl_gset:N = \g__skvitae_title_tl,
   company .tl_gset:N = \g__skvitae_company_tl,
@@ -37,7 +37,7 @@
   github  .tl_gset:N = \g__skvitae_github_tl,
 }
 \DeclareDocumentCommand\SetupContactInfo{+m}{
-  \keys_set:nn{skvitae / local}{#1}
+  \keys_set:nn{skvitae / contact-info}{#1}
   \clist_map_function:nN
     {name,title,company,street,zip,city}
     \__skvitae_check_required_field:n
@@ -56,6 +56,8 @@
   \__skvitae_regex_global_replace_once:nnN{([[:digit:]]{2})([[:digit:]]{2})([[:digit:]]{2})\Z}
     {\1\c{,}\2\c{,}\3}\g__skvitae_phone_tl
 }
+
+% Contact info helper macros
 \cs_new:Npn\__skvitae_check_required_field:n#1{
   \tl_if_empty:cT{g__skvitae_#1_tl}{
     \msg_error:nnn{skvitae}{missing-contact-info}{#1}
@@ -79,37 +81,114 @@
   \tl_gset_eq:NN#3\l_tmpa_tl
 }
 
-\file_if_exist:nTF{vc.tex}{
-  \file_input:n{vc.tex}
-}{
-  \def\VCRevision{}
-  \def\VCModifiedText{}
-  \def\VCDateISO{}
+% Single item macros
+\AtEndPreamble{
+  \tl_gset:Nn\g__skvitae_at_word_tl{at}
+  \tl_gset:Nn\g__skvitae_in_word_tl{in}
+  \tl_gset:Nn\g__skvitae_current_word_tl{current}
+  \tl_gset:Nn\g__skvitae_pdhthesis_word_tl{Ph.D. ~ thesis}
+  \tl_gset:Nn\g__skvitae_mscthesis_word_tl{Master's ~ thesis}
+  \tl_gset:Nn\g__skvitae_bscthesis_word_tl{Bachelor ~ thesis}
+  \gappto\captionsswedish{
+    \tl_gset:Nn\g__skvitae_at_word_tl{hos}
+    \tl_gset:Nn\g__skvitae_in_word_tl{i}
+    \tl_gset:Nn\g__skvitae_current_word_tl{nuvarande}
+    \tl_gset:Nn\g__skvitae_pdhthesis_word_tl{Doktorsavhandling}
+    \tl_gset:Nn\g__skvitae_mscthesis_word_tl{Examensarbete}
+    \tl_gset:Nn\g__skvitae_bscthesis_word_tl{Kandidatarbete}
+  }
 }
+\cs_gset_eq:NN\Current\c_max_int
+% Work items
+\keys_define:nn{skvitae / work-item}{
+  from      .int_set:N = \l__skvitae_witem_from_int,
+  to        .int_set:N = \l__skvitae_witem_to_int,
+  title     .tl_set:N  = \l__skvitae_witem_title_tl,
+  org       .tl_set:N  = \l__skvitae_witem_org_tl,
+  city      .tl_set:N  = \l__skvitae_witem_city_tl,
+  glue-word .tl_set:N  = \l__skvitae_witem_glue_word_tl,
+  glue-word .initial:n = {\tl_use:N\g__skvitae_at_word_tl},
+}
+\DeclareDocumentCommand\WorkItem{+m}{
+  \keys_set:nn{skvitae / work-item}{#1}
 
-\RequirePackage[final]{microtype}
-\RequirePackage{url,fancyhdr,marginnote}
-\RequirePackage{fontspec,xunicode}
-\RequirePackage[usenames,dvipsnames]{xcolor}
+  \par\hangindent=1 true cm\hangafter=1 \noindent
+  \int_compare:nNnT {\l__skvitae_witem_from_int} > {\c_zero} {
+    \int_use:N\l__skvitae_witem_from_int
+    \int_compare:nNnT {\l__skvitae_witem_to_int} > {\l__skvitae_witem_from_int} {
+      --
+      \int_compare:nNnTF {\l__skvitae_witem_to_int} = {\c_max_int} {
+        \tl_use:N\g__skvitae_current_word_tl
+      }{
+        \int_use:N\l__skvitae_witem_to_int
+      }
+    }
+    .~
+  }
 
-\AtBeginDocument{\RequirePackage[\xetex_if_engine:TF{xetex}{luatex},
-    colorlinks=true,
-    urlcolor=BlueViolet,
-    plainpages=false,
-    pdfpagelabels,
-    bookmarksnumbered,
-    pdftitle={Curriculim Vitae},
-    pagebackref,
-    pdfauthor={\tl_use:N\g__skvitae_name_tl},
-    pdfkeywords={CV, Resume, \tl_use:N\g__skvitae_name_tl}
-]{hyperref}}
+  \tl_use:N\l__skvitae_witem_title_tl {}~
+  \tl_use:N\l__skvitae_witem_glue_word_tl {}~
+  \emph{\tl_use:N\l__skvitae_witem_org_tl} ,~
+  \tl_use:N\l__skvitae_witem_city_tl .
+}
+% Education items
+\keys_define:nn{skvitae / edu-item}{
+  from      .int_set:N = \l__skvitae_eitem_from_int,
+  to        .int_set:N = \l__skvitae_eitem_to_int,
+  level      .tl_set:N = \l__skvitae_eitem_level_tl,
+  field      .tl_set:N = \l__skvitae_eitem_field_tl,
+  school     .tl_set:N = \l__skvitae_eitem_school_tl,
+  extra   .clist_set:N = \l__skvitae_eitem_extra_clist,
+}
+\DeclareDocumentCommand\EduItem{+m}{
+  \keys_set:nn{skvitae / edu-item}{#1}
 
-\defaultfontfeatures{Numbers=OldStyle,Ligatures=Common,Kerning=Uppercase,Mapping=tex-text}
-\setmainfont{Minion ~ Pro}
-\setsansfont[Colour=AA0000]{Cronos ~ Pro}
-\setmonofont[Scale=MatchLowercase]{Input ~ Sans}
-\usepackage{fontawesome}
+  \par\hangindent=1 true cm\hangafter=1 \noindent
+  \tl_if_empty:NF\l__skvitae_eitem_field_tl{
+    \tl_if_empty:NF\l__skvitae_eitem_level_tl{
+      \tl_use:N\l__skvitae_eitem_level_tl {}~
+      \tl_use:N\g__skvitae_in_word_tl {}~
+    }
+    \tl_use:N\l__skvitae_eitem_field_tl ,~
+  }
+  \tl_use:N\l__skvitae_eitem_school_tl
 
+  \int_compare:nNnT {\l__skvitae_eitem_from_int} > {\c_zero} {
+    ,~
+    \int_use:N\l__skvitae_eitem_from_int
+    \int_compare:nNnT {\l__skvitae_eitem_to_int} > {\l__skvitae_eitem_from_int} {
+      --
+      \int_compare:nNnTF {\l__skvitae_eitem_to_int} = {\c_max_int} {
+        \tl_use:N\g__skvitae_current_word_tl
+      }{
+        \int_use:N\l__skvitae_eitem_to_int
+      }
+    }
+  }
+  .
+
+  \clist_map_inline:Nn\l__skvitae_eitem_extra_clist{
+    \par\hangindent=1 true cm\hangafter=1 \noindent
+    {##1.}
+  }
+}
+\keys_define:nn{skvitae / thesis}{
+  title    .tl_set:N   = \l__skvitae_thesis_title_tl,
+  language .tl_set:N   = \l__skvitae_thesis_language_tl,
+  type     .choices:nn = {phd,msc,bsc}
+                         {\tl_set_eq:Nc\l__skvitae_thesis_type_tl{g__skvitae_##1thesis_word_tl}},
+}
+\DeclareDocumentCommand\Thesis{+m}{
+  \keys_set:nn{skvitae / thesis}{#1}
+
+  \tl_use:N\l__skvitae_thesis_type_tl :~
+  \foreignquote{\tl_use:N\l__skvitae_thesis_language_tl}
+               {\tl_use:N\l__skvitae_thesis_title_tl}
+}
+% Other items
+% ???
+
+% Sectioning macros
 \DeclareDocumentCommand\section{som}{
   \bigskip\par
   \marginnote{
@@ -126,14 +205,45 @@
 \DeclareDocumentCommand\subsection{som}{
   \par\noindent\emph{#3}\smallskip
 }
-\DeclareDocumentCommand\amper{}{
-  {\fontspec[Scale=.95,Colour=AA0000]{Minion Pro Medium}\selectfont\&\,}
+
+% Version control information
+\file_if_exist:nTF{vc.tex}{
+  \file_input:n{vc.tex}
+}{
+  \def\VCRevision{}
+  \def\VCModifiedText{}
+  \def\VCDateISO{}
 }
-\DeclareDocumentCommand\ind{}{
-  \par\hangindent=1 true cm\hangafter=1 \noindent
-}
+
+% Packages
+\RequirePackage[final]{microtype}
+\RequirePackage{url,fancyhdr,marginnote}
+\RequirePackage{fontspec,xunicode}
+\RequirePackage[usenames,dvipsnames]{xcolor}
+
+% hyperref metadata
+\AtBeginDocument{\RequirePackage[\xetex_if_engine:TF{xetex}{luatex},
+    colorlinks=true,
+    urlcolor=BlueViolet,
+    plainpages=false,
+    pdfpagelabels,
+    bookmarksnumbered,
+    pdftitle={Curriculim Vitae},
+    pagebackref,
+    pdfauthor={\tl_use:N\g__skvitae_name_tl},
+    pdfkeywords={CV, Resume, \tl_use:N\g__skvitae_name_tl}
+]{hyperref}}
+
+% Fonts
+\defaultfontfeatures{Numbers=OldStyle,Ligatures=Common,Kerning=Uppercase,Mapping=tex-text}
+\setmainfont{Minion ~ Pro}
+\setsansfont[Colour=AA0000]{Cronos ~ Pro}
+\setmonofont[Scale=MatchLowercase]{Input ~ Sans}
+\usepackage{fontawesome}
+
+
 \DeclareDocumentCommand\SkvitaeItem{o}{
-  \ind
+  \par\hangindent=1 true cm\hangafter=1 \noindent
   \IfNoValueF{#1}{#1.~}
 }
 \DeclareDocumentEnvironment{itemize}{}{
@@ -155,7 +265,7 @@
     \begingroup\flushright\footnotesize
     \tl_use:N\g__skvitae_name_tl \\
     \tl_use:N\g__skvitae_street_tl \\
-    \tl_use:N\g__skvitae_zip_tl \  \tl_use:N\g__skvitae_city_tl \\
+    \tl_use:N\g__skvitae_zip_tl {}~ \tl_use:N\g__skvitae_city_tl \\
     %\tl_if_empty:NF\g__skvitae_country_tl{\tl_use:N\g__skvitae_country_tl \\}
     \endgroup
   \end{minipage}
