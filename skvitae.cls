@@ -2,34 +2,85 @@
 %%% Simon Sigurdhsson <sigurdhsson@gmail.com>
 %%% Forked from http://github.com/kjhealy/kjh-vita
 %%% Kieran Healy <kjhealy@gmail.com>
-\NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{skvitae}[2013/01/06 v1.0 skvitae curriculum vitae class]
-\RequirePackage{xstring,xparse}
-
-%\RequirePackage{kvoptions}
-%\SetupKeyvalOptions{family=skrapport,prefix=skrapport@}
-
-\RequirePackage{ifxetex,ifluatex}
-\ifxetex\else\ifluatex\else
-\ClassError{skvitae}{Requires XeTeX or luaTeX!}
-{Please run using the `xelatex' or `lualatex' commands.}
-\fi\fi
-
+\RequirePackage{expl3,xstring,xparse}
+\ProvidesExplClass{skvitae}{2014/10/20}{2.0}
+  {skvitae curriculum vitae class}
 \LoadClass[12pt]{article}
+\RequirePackage{l3regex}
 
-\DeclareDocumentCommand\author{m}{\gdef\@author{#1}}
-\DeclareDocumentCommand\affiliation{m}{\gdef\@affiliation{#1}}
-\DeclareDocumentCommand\street{m}{\gdef\@street{#1}}
-\DeclareDocumentCommand\city{m}{\gdef\@city{#1}}
-\DeclareDocumentCommand\email{m}{\gdef\@email{#1}}
-\DeclareDocumentCommand\web{m}{\gdef\@web{#1}}
-\DeclareDocumentCommand\phone{m}{\gdef\@phone{#1}}
-\DeclareDocumentCommand\mobile{m}{\gdef\@mobile{#1}}
-\DeclareDocumentCommand\keywords{m}{\gdef\@keywords{#1}}
-\DeclareDocumentCommand\github{m}{\gdef\@github{#1}}
+% Error messages
+\msg_new:nnnn{skvitae}{missing-contact-info}{Contact~info~field~`#1'~is~missing!}
+  {Please~provide~the~appropriate~value~using~`\token_to_str:N\SetupContactInfo'.}
+\msg_new:nnnn{skvitae}{requires-xeluatex}{This~class~requires~XeTeX~or~luaTeX!}
+  {Please~compile~using~the~`xelatex`~or~`lualatex`~engine(s).}
+\msg_new:nnnn{skvitae}{incorrect-usage}{Incorrect~use~of~`\token_to_str:N#1':~#2!}
+    {I~will~try~to~recover~from~this~by~#3.}
 
-\IfFileExists{vc.tex}{
-  \input{vc}
+% Check for XeTeX/LuaTeX
+\bool_if:nF{\xetex_if_engine_p: || \luatex_if_engine_p:}{
+  \msg_error:nn{skvitae}{requires-xeluatex}
+}
+
+% Contact info setup macro
+\keys_define:nn{skvitae / local}{
+  name    .tl_gset:N = \g__skvitae_name_tl,
+  title   .tl_gset:N = \g__skvitae_title_tl,
+  company .tl_gset:N = \g__skvitae_company_tl,
+  street  .tl_gset:N = \g__skvitae_street_tl,
+  zip     .tl_gset:N = \g__skvitae_zip_tl,
+  city    .tl_gset:N = \g__skvitae_city_tl,
+  country .tl_gset:N = \g__skvitae_country_tl,
+  email   .tl_gset:N = \g__skvitae_email_tl,
+  web     .tl_gset:N = \g__skvitae_web_tl,
+  phone   .tl_gset:N = \g__skvitae_phone_tl,
+  mobile  .tl_gset:N = \g__skvitae_mobile_tl,
+  github  .tl_gset:N = \g__skvitae_github_tl,
+}
+\DeclareDocumentCommand\SetupContactInfo{+m}{
+  \keys_set:nn{skvitae / local}{#1}
+  \clist_map_function:nN
+    {name,title,company,street,zip,city}
+    \__skvitae_check_required_field:n
+  \__skvitae_regex_global_replace_once:nnN{([[:digit:]]{2})([[:digit:]]{3})\Z}
+    {\1\c{,}\2}\g__skvitae_zip_tl
+  \__skvitae_regex_global_replace_once:nnN{(\+[[:digit:]]{2})(7?[[:digit:]]{2})}
+    {\1\c{,}\2--}\g__skvitae_mobile_tl
+  \__skvitae_regex_global_replace_once:nnN{\A(07?[[:digit:]]{2})}
+    {\1--}\g__skvitae_mobile_tl
+  \__skvitae_regex_global_replace_once:nnN{([[:digit:]]{2})([[:digit:]]{2})([[:digit:]]{2})\Z}
+    {\1\c{,}\2\c{,}\3}\g__skvitae_mobile_tl
+  \__skvitae_regex_global_replace_once:nnN{(\+[[:digit:]]{2})(7?[[:digit:]]{2})}
+    {\1\c{,}\2--}\g__skvitae_phone_tl
+  \__skvitae_regex_global_replace_once:nnN{\A(07?[[:digit:]]{2})}
+    {\1--}\g__skvitae_phone_tl
+  \__skvitae_regex_global_replace_once:nnN{([[:digit:]]{2})([[:digit:]]{2})([[:digit:]]{2})\Z}
+    {\1\c{,}\2\c{,}\3}\g__skvitae_phone_tl
+}
+\cs_new:Npn\__skvitae_check_required_field:n#1{
+  \tl_if_empty:cT{g__skvitae_#1_tl}{
+    \msg_error:nnn{skvitae}{missing-contact-info}{#1}
+  }
+}
+\cs_new:Npn\__skvitae_phone_or_mobile:{
+  \tl_if_empty:NTF\g__skvitae_phone_tl{
+    \tl_if_empty:NTF\g__skvitae_mobile_tl{
+      \msg_warning:nnnnn{skvitae}{incorrect-usage}{\__skvitae_phone_or_mobile:}
+        {phone~and~mobile~both~missing}{returning~an~empty~string}
+    }{
+      \tl_use:N\g__skvitae_mobile_tl
+    }
+  }{
+    \tl_use:N\g__skvitae_phone_tl
+  }
+}
+\cs_new:Npn\__skvitae_regex_global_replace_once:nnN#1#2#3{
+  \tl_set_eq:NN\l_tmpa_tl#3
+  \regex_replace_once:nnN{#1}{#2}\l_tmpa_tl
+  \tl_gset_eq:NN#3\l_tmpa_tl
+}
+
+\file_if_exist:nTF{vc.tex}{
+  \file_input:n{vc.tex}
 }{
   \def\VCRevision{}
   \def\VCModifiedText{}
@@ -41,7 +92,7 @@
 \RequirePackage{fontspec,xunicode}
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
-\AtBeginDocument{\RequirePackage[xetex,
+\AtBeginDocument{\RequirePackage[\xetex_if_engine:TF{xetex}{luatex},
     colorlinks=true,
     urlcolor=BlueViolet,
     plainpages=false,
@@ -49,13 +100,14 @@
     bookmarksnumbered,
     pdftitle={Curriculim Vitae},
     pagebackref,
-    pdfauthor={\@author},
-    pdfkeywords={\@keywords}
+    pdfauthor={\tl_use:N\g__skvitae_name_tl},
+    pdfkeywords={CV, Resume, \tl_use:N\g__skvitae_name_tl}
 ]{hyperref}}
 
-\setromanfont[Mapping=tex-text,Numbers={OldStyle},Ligatures={Common}]{Minion Pro}
-\setsansfont[Mapping=tex-text,Colour=AA0000]{Myriad Pro}
-\setmonofont[Mapping=tex-text,Scale=0.9]{Monaco}
+\defaultfontfeatures{Numbers=OldStyle,Ligatures=Common,Kerning=Uppercase,Mapping=tex-text}
+\setmainfont{Minion ~ Pro}
+\setsansfont[Colour=AA0000]{Cronos ~ Pro}
+\setmonofont[Scale=MatchLowercase]{Input ~ Sans}
 \usepackage{fontawesome}
 
 \DeclareDocumentCommand\section{som}{
@@ -77,11 +129,17 @@
 \DeclareDocumentCommand\amper{}{
   {\fontspec[Scale=.95,Colour=AA0000]{Minion Pro Medium}\selectfont\&\,}
 }
-\RenewDocumentCommand\labelitemi{}{~}
-\RenewDocumentCommand\labelitemii{}{~}
-
 \DeclareDocumentCommand\ind{}{
   \par\hangindent=1 true cm\hangafter=1 \noindent
+}
+\DeclareDocumentCommand\SkvitaeItem{o}{
+  \ind
+  \IfNoValueF{#1}{#1.~}
+}
+\DeclareDocumentEnvironment{itemize}{}{
+  \cs_set_eq:NN\item\SkvitaeItem
+}{
+  % empty
 }
 
 \pagestyle{fancy}
@@ -95,24 +153,28 @@
   \hfill
   \begin{minipage}[t]{2.95in}
     \begingroup\flushright\footnotesize
-    \@ifundefined{\@affiliation}{\@author}{\@affiliation} \\
-    \@street \\
-    \@city \\
+    \tl_use:N\g__skvitae_name_tl \\
+    \tl_use:N\g__skvitae_street_tl \\
+    \tl_use:N\g__skvitae_zip_tl \  \tl_use:N\g__skvitae_city_tl \\
+    %\tl_if_empty:NF\g__skvitae_country_tl{\tl_use:N\g__skvitae_country_tl \\}
     \endgroup
   \end{minipage}
   \begin{minipage}[t]{1.7in}
     \begingroup\flushright\footnotesize
     %\@ifundefined{\@phone}{\mbox{}}{\faicon{phone}\ \@phone} \\
     \scalebox{0.9}{\raisebox{-.125ex}{\faicon{github}}}%
-      \hspace{.5em}\@github \\
+      \hspace{.5em}\tl_use:N\g__skvitae_github_tl \\
     \scalebox{0.9}{\raisebox{-.25ex}{\faicon{phone}}}%
-      \hspace{.5em}\@mobile \\
-    \hfill\hbox{\scriptsize\texttt{\href{mailto:\@email}{\@email}}}
-    \mbox{}\\
+      \hspace{.5em}\tl_use:N\g__skvitae_mobile_tl \\
+    \tl_if_empty:NF\g__skvitae_email_tl{
+      \hfill\hbox{\scriptsize\texttt{\href{mailto:\tl_use:N\g__skvitae_email_tl}
+                                          {\tl_use:N\g__skvitae_email_tl}}}
+      \mbox{}\\
+    }
     \endgroup
   \end{minipage}
   \par\medskip\par
-  \noindent{\Large{\textsc{\expandafter\MakeLowercase{\@author}}}}
+  \noindent{\Large{\textsc{\expandafter\MakeLowercase{\tl_use:N\g__skvitae_name_tl}}}}
   \reversemarginpar
   \par\vspace{-\bigskipamount}\medskip
 }

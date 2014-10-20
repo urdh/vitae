@@ -4,16 +4,20 @@
 \usepackage{csquotes}
 \usepackage{ragged2e}
 
-\author{Simon Sigurdhsson}
-\affiliation{}
-\street{Engdahlsgatan 6C}
-\city{412\,59 Göteborg}
-\email{sigurdhsson@gmail.com}
-\web{http://sigurdhsson.org}
-\phone{}
-\github{urdh}
-\mobile{+46\,703--29\,30\,54}
-\keywords{Simon, Sigurdhsson, Simon Sigurdhsson, CV, Resume}
+\SetupContactInfo{
+	name		= {Simon Sigurdhsson},
+	title		= {---},
+	company = {---},
+	street  = {Engdahlsgatan 6C},
+	zip 		= {SE--41259},
+	country = {Sweden},
+	city 		= {Göteborg},
+	email 	= {Sigurdhsson@gmail.com},
+	web 		= {http://sigurdhsson.org},
+	%phone   = {},
+	mobile  = {+46703293054},
+	github  = {urdh},
+}
 
 \begin{document}
 	\RaggedRight
@@ -23,36 +27,48 @@
 	%\ind 50-60 words
 
 	\section{Education}
-	\ind Master of Science in Engineering Mathematics and Computational Science, Chalmers University of Technology, 2008--current.%
-	\ind {Master's thesis: \enquote{Solving max-sum problems with the in-the-middle heuristic}}.%
-	\ind {Bachelor thesis: \foreignquote{swedish}{Statistisk bildanalys av handgester för människa-dator-interaktion}}.
+	\begin{itemize}
+		\item Master of Science in Engineering Mathematics and Computational Science, Chalmers University of Technology, 2008--current.%
+		\item {Master's thesis: \enquote{Solving max-sum problems with the in-the-middle heuristic}}.%
+		\item {Bachelor thesis: \foreignquote{swedish}{Statistisk bildanalys av handgester för människa-dator-interaktion}}.
+	\end{itemize}
 
 	\section{Work experience}
-	\ind 2013. Summer job (developer in Verification efficiency) at Volvo Car Corporation, Göteborg. %
-	    \textit{Developed C\#.NET software using CAN and GPIB to automate testing of FM receivers in infotainment systems.}
-	\ind 2006--2008. Distributor at \emph{SDR Svensk Direktreklam}, Trelleborg.
+	\begin{itemize}
+		\item[2013] Summer job (developer in Verification efficiency) at Volvo Car Corporation, Göteborg. %
+		    \textit{Developed C\#.NET software using CAN and GPIB to automate testing of FM receivers in infotainment systems.}
+		\item[2006--2008] Distributor at \emph{SDR Svensk Direktreklam}, Trelleborg.
+	\end{itemize}
 
 	\medskip
 	\subsection{Extracurricular activities}
-	%\ind 2012--2013. Editor for \emph{Fysikteknologsektionens informationsblad}, Göteborg.
-	\ind 2012--2013. Treasurer for \emph{Chalmers Studentkårs Film- och Fotocommitté}, Göteborg.
-	\ind 2011--2014. Photographer for \emph{Chalmers Studentkårs Film- och Fotocommitté}, Göteborg.
-	\ind 2010--2011. Secretary of the board of \emph{Fysikteknologsektionen}, Göteborg.
-	\ind 2009--2010. Member of \emph{Fysikteknologsektionens sexmästeri}, Göteborg.
-	\ind 2009--2011. Editor for \emph{Fysikteknologsektionens informationsblad}, Göteborg.
+	\begin{itemize}
+		%\item[2012--2013] Editor for \emph{Fysikteknologsektionens informationsblad}, Göteborg.
+		\item[2012--2013] Treasurer for \emph{Chalmers Studentkårs Film- och Fotocommitté}, Göteborg.
+		\item[2011--2014] Photographer for \emph{Chalmers Studentkårs Film- och Fotocommitté}, Göteborg.
+		\item[2010--2011] Secretary of the board of \emph{Fysikteknologsektionen}, Göteborg.
+		\item[2009--2010] Member of \emph{Fysikteknologsektionens sexmästeri}, Göteborg.
+		\item[2009--2011] Editor for \emph{Fysikteknologsektionens informationsblad}, Göteborg.
+	\end{itemize}
 
 	\section{Skills}
 	\subsection{Language}
-	\ind Swedish (native language).
-	\ind English (fluent both in speech and in writing).
+	\begin{itemize}
+		\item Swedish (native language).
+		\item English (fluent both in speech and in writing).
+	\end{itemize}
 
 	\medskip
 	\subsection{IT skills}
-	\ind Good skills: CSS, C, C++, C\#.NET, Git, HTML, \LaTeX, Mathematica, MATLAB, Microsoft Office, Python, R, Ruby.
-	\ind Basic skills: CANalyzer, Comsol, Fortran, Java, Microsoft Visual Studio, PHP, Subversion.
+	\begin{itemize}
+		\item Good skills: CSS, C, C++, C\#.NET, Git, HTML, \LaTeX, Mathematica, MATLAB, Microsoft Office, Python, R, Ruby.
+		\item Basic skills: CANalyzer, Comsol, Fortran, Java, Microsoft Visual Studio, PHP, Subversion.
+	\end{itemize}
 
 	\medskip
 	\subsection{Miscellaneous}
-	\ind Holder of a driver's license (B) since 2008.
-	\ind References available upon request.
+	\begin{itemize}
+		\item Holder of a driver's license (B) since 2008.
+		\item References available upon request.
+	\end{itemize}
 \end{document}
