@@ -217,7 +217,7 @@
   \file_input:n{vc.tex}
 }{
   \def\VCRevision{}
-  \def\VCModifiedText{}
+  \def\VCModified{}
   \def\VCDateISO{}
 }
 
@@ -272,7 +272,7 @@
 \fancyfoot[R]{
   \textcolor[gray]{0.85}{\scriptsize
     \texttt{\VCRevision} ~ on ~ \VCDateISO
-    \str_if_eq:nnF{\VCModifiedText}{}{
+    \int_compare:nNnF {\VCModified} = {\c_zero}{
       \\ \color[HTML]{FF4136} with ~ local ~ modifications!
     }
   }
