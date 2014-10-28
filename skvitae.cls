@@ -266,7 +266,7 @@
 \setkomafont{section}{\sectionfont\mdseries\Large}
 \setkomafont{subsection}{\subsectionfont\bfseries\small}
 \titlespacing{\section}{0pt}{1.25em}{0.50em}
-\titlespacing{\subsection}{0pt}{1ex}{2ex}
+\titlespacing{\subsection}{0pt}{2ex}{2ex}
 
 % Header and footer
 \pagestyle{fancy}
