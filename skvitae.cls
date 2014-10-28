@@ -245,24 +245,27 @@
 \defaultfontfeatures{Mapping=tex-text}
 \setmainfont[
   Ligatures = Common, Numbers = OldStyle,
-]{Minion ~ Pro}
+]{Adobe ~ Jenson ~ Pro}
 \setsansfont{Cronos ~ Pro}
 \setmonofont[Scale=MatchLowercase]{Input ~ Sans}
-\newfontfamily\sectionfont{Linux ~ Libertine ~ O}[
+\newfontfamily\sectionfont{Adobe ~ Caslon ~ Pro}[
   Ligatures = Rare, Numbers = OldStyle,
 ]
-\newfontfamily\subsectionfont{Linux ~ Libertine ~ O}[
+\newfontfamily\subsectionfont{Adobe ~ Caslon ~ Pro}[
   Ligatures = Rare, Numbers = OldStyle,
 ]
-\newfontfamily\datefont{Minion ~ Pro}[
+\newfontfamily\datefont{Adobe ~ Jenson ~ Pro}[
   Ligatures = Common, Numbers = OldStyle,
+]
+\newfontfamily\contactfont{Adobe ~ Jenson ~ Pro}[
+  Ligatures = Rare, Numbers = OldStyle,
 ]
 
 % Restyling KOMA-script fonts and things
 \setcounter{secnumdepth}{-2}
-\setkomafont{section}{\sectionfont\mdseries\Large}
+\setkomafont{section}{\sectionfont\mdseries\LARGE}
 \setkomafont{subsection}{\subsectionfont\itshape\small}
-\titlespacing{\section}{0pt}{1em}{1em}
+\titlespacing{\section}{0pt}{1.25em}{0.50em}
 \titlespacing{\subsection}{0pt}{1ex}{1ex}
 
 % Header and footer
@@ -288,14 +291,14 @@
   \tl_if_empty:NF\g__skvitae_country_tl{\\ \tl_use:N\g__skvitae_country_tl}
 }
 \cs_new:Npn\__skvitae_typeset_name_to_coffin:N#1{
-  \hcoffin_set:Nn #1             {\usekomafont{section} \LARGE \tl_use:N\g__skvitae_name_tl}
-  \hcoffin_set:Nn \l_tmpa_coffin {\tl_use:N\g__skvitae_title_tl   \strut}
-  \hcoffin_set:Nn \l_tmpb_coffin {\tl_use:N\g__skvitae_company_tl \strut}
+  \hcoffin_set:Nn #1             {\contactfont \huge \tl_use:N\g__skvitae_name_tl}
+  \hcoffin_set:Nn \l_tmpa_coffin {\contactfont \tl_use:N\g__skvitae_title_tl   \strut}
+  \hcoffin_set:Nn \l_tmpb_coffin {\contactfont \tl_use:N\g__skvitae_company_tl \strut}
   \coffin_join:NnnNnnnn #1 {r} {H} \l_tmpa_coffin {r} {t} {0pt} {-1ex}
   \coffin_join:NnnNnnnn #1 {r} {B} \l_tmpb_coffin {r} {t} {0pt} {-1ex}
 }
 \cs_new:Npn\__skvitae_typeset_contact_info_to_coffin:N#1{
-  \hcoffin_set:Nn #1             {\__skvitae_phone_or_mobile:}
+  \hcoffin_set:Nn #1             {\contactfont \__skvitae_phone_or_mobile:}
   \hcoffin_set:Nn \l_tmpa_coffin {\ttfamily {\small \__skvitae_linked_email:} \strut}
   \hcoffin_set:Nn \l_tmpb_coffin {\ttfamily {\small \__skvitae_linked_web:}   \strut}
   \coffin_join:NnnNnnnn #1 {l} {H} \l_tmpa_coffin {l} {t} {0pt} {-1ex}
