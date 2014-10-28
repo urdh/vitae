@@ -48,7 +48,7 @@
   \clist_map_function:nN
     {name,title,company,street,zip,city}
     \__skvitae_check_required_field:n
-  \__skvitae_regex_global_replace_once:nnN{([[:digit:]]{2})([[:digit:]]{3})\Z}
+  \__skvitae_regex_global_replace_once:nnN{([[:digit:]]{3})([[:digit:]]{2})\Z}
     {\1\c{,}\2}\g__skvitae_zip_tl
   \__skvitae_regex_global_replace_once:nnN{(\+[[:digit:]]{2})(7?[[:digit:]]{2})}
     {\1\c{,}\2--}\g__skvitae_mobile_tl
