@@ -271,9 +271,10 @@
 % Header and footer
 \pagestyle{fancy}
 \fancyhead{}
-\fancyfoot[C]{\small\thepage}
+\fancyfoot[C]{\small\__skvitae_typeset_adress:}
 \fancyfoot[R]{
-  \textcolor[gray]{0.85}{\scriptsize
+  \textcolor[gray]{0.85}{
+    \scriptsize \null \\
     \texttt{\VCRevision} ~ on ~ \VCDateISO
     \int_compare:nNnF {\VCModified} = {\c_zero}{
       \\ \color[HTML]{FF4136} with ~ local ~ modifications!
@@ -285,10 +286,11 @@
 
 % Name, address etc
 \cs_new:Npn\__skvitae_typeset_adress:{
-  \tl_use:N\g__skvitae_name_tl \\
-  \tl_use:N\g__skvitae_street_tl \\
+  \itshape
+  \tl_use:N\g__skvitae_name_tl {}~ \(\cdot\) ~
+  \tl_use:N\g__skvitae_street_tl {}~ \(\cdot\) ~
   \tl_use:N\g__skvitae_zip_tl {}~ \tl_use:N\g__skvitae_city_tl
-  \tl_if_empty:NF\g__skvitae_country_tl{\\ \tl_use:N\g__skvitae_country_tl}
+  \tl_if_empty:NF\g__skvitae_country_tl{~ \(\cdot\) ~ \tl_use:N\g__skvitae_country_tl}
 }
 \cs_new:Npn\__skvitae_typeset_name_to_coffin:N#1{
   \hcoffin_set:Nn #1             {\contactfont \huge \tl_use:N\g__skvitae_name_tl}
