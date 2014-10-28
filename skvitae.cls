@@ -263,10 +263,10 @@
 
 % Restyling KOMA-script fonts and things
 \setcounter{secnumdepth}{-2}
-\setkomafont{section}{\sectionfont\mdseries\LARGE}
-\setkomafont{subsection}{\subsectionfont\itshape\small}
+\setkomafont{section}{\sectionfont\mdseries\Large}
+\setkomafont{subsection}{\subsectionfont\bfseries\small}
 \titlespacing{\section}{0pt}{1.25em}{0.50em}
-\titlespacing{\subsection}{0pt}{1ex}{1ex}
+\titlespacing{\subsection}{0pt}{1ex}{2ex}
 
 % Header and footer
 \pagestyle{fancy}
