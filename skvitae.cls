@@ -185,7 +185,8 @@
         \tl_use:N\l__skvitae_eitem_field_tl ,~
       }{
         \tl_use:N\l__skvitae_eitem_level_tl {}~
-        ( \tl_use:N\l__skvitae_eitem_field_tl ) ,~
+        \tl_use:N\g__skvitae_in_word_tl {}~
+        \tl_use:N\l__skvitae_eitem_field_tl ,~
       }
     }
     \tl_use:N\l__skvitae_eitem_school_tl .
