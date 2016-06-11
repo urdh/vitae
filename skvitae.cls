@@ -224,9 +224,9 @@
 
 % Packages
 \RequirePackage[final]{microtype}
-\RequirePackage{url,fancyhdr,ragged2e}
+\RequirePackage{url,ragged2e}
 \RequirePackage{fontspec,xunicode}
-\RequirePackage{titlesec,fancyhdr}
+\RequirePackage{scrlayer-scrpage}
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
 % hyperref metadata
@@ -266,14 +266,25 @@
 \setcounter{secnumdepth}{-2}
 \setkomafont{section}{\sectionfont\mdseries\Large}
 \setkomafont{subsection}{\subsectionfont\bfseries\small}
-\titlespacing{\section}{0pt}{1.25em}{0.50em}
-\titlespacing{\subsection}{0pt}{2ex}{2ex}
+\RedeclareSectionCommand[
+  beforeskip = 1.25em,
+  afterskip = 0.50em,
+  indent = 0pt
+]{section}
+\RedeclareSectionCommand[
+  beforeskip = 2ex,
+  afterskip = 2ex,
+  indent = 0pt
+]{subsection}
 
 % Header and footer
-\pagestyle{fancy}
-\fancyhead{}
-\fancyfoot[C]{\small\__skvitae_typeset_adress:}
-\fancyfoot[R]{
+\pagestyle{scrheadings}
+\ihead{}
+\chead{}
+\ohead{}
+\ifoot{}
+\cfoot{\small\__skvitae_typeset_adress:}
+\ofoot{
   \textcolor[gray]{0.85}{
     \scriptsize \null \\
     \texttt{\VCRevision} ~ on ~ \VCDateISO
@@ -282,8 +293,6 @@
     }
   }
 }
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
 
 % Name, address etc
 \cs_new:Npn\__skvitae_typeset_adress:{
