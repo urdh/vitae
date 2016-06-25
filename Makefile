@@ -15,6 +15,3 @@ distclean: clean
 
 letters:
 	$(MAKE) -C letters
-
-deploy: cv
-	scp svenska.pdf english.pdf remote:~/www/cv

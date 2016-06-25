@@ -3,7 +3,7 @@
 %%% Forked from http://github.com/kjhealy/kjh-vita
 %%% Kieran Healy <kjhealy@gmail.com>
 \RequirePackage{expl3,xstring,xparse}
-\ProvidesExplClass{skvitae}{2014/10/20}{2.0}
+\ProvidesExplClass{skvitae}{2016/06/25}{2.1}
   {skvitae curriculum vitae class}
 \RequirePackage{l3regex,etoolbox}
 
