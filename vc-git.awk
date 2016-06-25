@@ -2,7 +2,7 @@
 # The original file can be found at CTAN:support/vc.
 # This file is Public Domain.
 BEGIN {
-		
+
 ### Process output of "git status".
 		if (script=="status") {
 				modified = 0
@@ -26,14 +26,14 @@ script=="log" && /^Committer Date:/ { CommitterDate = substr($0, 2+match($0, ":"
 
 ### Process output of "git status".
 ### Changed index?
-script=="status" && /^# Changes to be committed:/ { modified = 1 }
+script=="status" && /^Changes to be committed:/ { modified = 1 }
 ### Unstaged modifications?
-script=="status" && /^# Changed but not updated:/ { modified = 2 }
+script=="status" && /^Changes not staged for commit:/ { modified = 2 }
 
 
 
 END {
-		
+
 ### Process output of "git log".
 		if (script=="log") {
 ### Standard encoding is UTF-8.
@@ -74,7 +74,7 @@ END {
 				print "\\gdef\\VCModified{0}%"
 				print "\\gdef\\VCRevisionMod{\\VCRevision}%"
 		}
-		
+
 ### Process output of "git status".
 		if (script=="status") {
 				print "%%% Is working copy modified?"
@@ -85,5 +85,5 @@ END {
 						print "\\gdef\\VCRevisionMod{\\VCRevision~\\VCModifiedText}%"
 				}
 		}
-		
+
 }

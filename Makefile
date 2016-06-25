@@ -9,7 +9,7 @@ distclean: clean
 	$(MAKE) -C letters distclean
 
 %.pdf: %.tex skvitae.cls
-	sh ./vc
+	sh ./vc -f -m
 	xelatex $<
 	xelatex $<
 
