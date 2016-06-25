@@ -286,11 +286,14 @@
 \cfoot{\small\__skvitae_typeset_adress:}
 \ofoot{
   \textcolor[gray]{0.85}{
-    \scriptsize \null \\
-    \texttt{\VCRevision} ~ on ~ \VCDateISO
-    \int_compare:nNnF {\VCModified} = {\c_zero}{
-      \\ \color[HTML]{FF4136} with ~ local ~ modifications!
+    \null \\[2ex]
+    \scriptsize
+    \int_compare:nNnTF {\VCModified} = {\c_zero}{
+      \texttt{\VCRevision}
+    }{
+      \textcolor[HTML]{FF4136}{\texttt{HEAD}}
     }
+    {}~ on ~ \VCDateISO
   }
 }
 
