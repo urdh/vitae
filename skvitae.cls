@@ -5,7 +5,7 @@
 \RequirePackage{expl3,xstring,xparse}
 \ProvidesExplClass{skvitae}{2016/06/25}{2.1}
   {skvitae curriculum vitae class}
-\RequirePackage{l3regex,etoolbox}
+\RequirePackage{etoolbox}
 
 % Now based on the KOMA-script article class
 \LoadClass{scrartcl}
@@ -24,7 +24,7 @@
     {I~will~try~to~recover~from~this~by~#3.}
 
 % Check for XeTeX/LuaTeX
-\bool_if:nF{\xetex_if_engine_p: || \luatex_if_engine_p:}{
+\bool_if:nF{\sys_if_engine_xetex_p: || \sys_if_engine_luatex_p:}{
   \msg_error:nn{skvitae}{requires-xeluatex}
 }
 
@@ -230,7 +230,7 @@
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
 % hyperref metadata
-\AtBeginDocument{\RequirePackage[\xetex_if_engine:TF{xetex}{luatex},
+\AtBeginDocument{\RequirePackage[\sys_if_engine_xetex:TF{xetex}{luatex},
     colorlinks=true,
     urlcolor=BlueViolet,
     plainpages=false,
