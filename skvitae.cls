@@ -2,8 +2,8 @@
 %%% Simon Sigurdhsson <sigurdhsson@gmail.com>
 %%% Forked from http://github.com/kjhealy/kjh-vita
 %%% Kieran Healy <kjhealy@gmail.com>
-\RequirePackage{expl3,xstring,xparse}
-\ProvidesExplClass{skvitae}{2016/06/25}{2.1}
+\RequirePackage{expl3,xstring,xparse,l3regex}
+\ProvidesExplClass{skvitae}{2018/01/04}{2.2}
   {skvitae curriculum vitae class}
 \RequirePackage{etoolbox}
 
